@@ -196,10 +196,12 @@ export const withContent = <T extends Editor>(editor: T) => {
 
       // 尝试从缓存中获取
       const cached = NODE_TO_HTML.get(child)
+
       if (cached) { return cached }
 
       // 生成新的HTML并缓存
       const htmlStr = node2html(child, e)
+
       NODE_TO_HTML.set(child, htmlStr)
       return htmlStr
     }).join('')
