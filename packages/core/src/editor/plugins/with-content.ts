@@ -487,5 +487,33 @@ export const withContent = <T extends Editor>(editor: T) => {
     }
   }
 
+  /**
+   * 将 html 转换为 slate content
+   * @param html html string
+   */
+  e.htmlToContent = (html: string = '') => {
+    return htmlToContent(e, html)
+  }
+
+  e.node2html = (node: Node): string => {
+    const nodeType = DomEditor.getNodeType(node)
+    const { skipCacheTypes = ['list-item'] } = e.getConfig()
+    // 如果节点类型在跳过缓存列表中，不使用缓存
+    if (skipCacheTypes.includes(nodeType)) {
+      return node2html((node as any), e)
+    }
+
+    // 尝试从缓存中获取
+    const cached = NODE_TO_HTML.get(node)
+
+    if (cached) { return cached }
+
+    // 生成新的HTML并缓存
+    const htmlStr = node2html((node as any), e)
+
+    NODE_TO_HTML.set(node, htmlStr)
+    return htmlStr
+  }
+
   return e
 }

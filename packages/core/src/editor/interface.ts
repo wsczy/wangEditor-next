@@ -44,6 +44,13 @@ export interface IDomEditor extends Editor {
   clear: () => void
   dangerouslyInsertHtml: (html: string, isRecursive?: boolean) => void
   setHtml: (html: string) => void
+  /**
+   * 将 html 字符串转换为 slate content 数组
+   * @param html html 字符串
+   * @returns slate Descendant[] 内容数组
+   */
+  htmlToContent: (html: string) => any // 实际返回类型为 Descendant[]，如需更严格可引入并指定
+  node2html: (node) => string
 
   // dom 相关
   id: string
