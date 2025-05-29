@@ -333,6 +333,13 @@ export const withContent = <T extends Editor>(editor: T) => {
 
       // Element Node
       if (isDOMElement(n)) {
+        // 只保留 h1/h2/h3 的纯文本，去掉 class 和 style
+        if (["H1", "H2", "H3"].includes(nodeName)) {
+          n.removeAttribute && n.removeAttribute("class")
+          n.removeAttribute && n.removeAttribute("style")
+          // 只保留纯文本内容
+          n.innerHTML = n.textContent || ''
+        }
         // 过滤掉忽略的 tag
         if (IGNORE_TAGS.has(nodeName.toLowerCase())) { return false }
         return true
