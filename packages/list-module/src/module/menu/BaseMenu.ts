@@ -50,6 +50,9 @@ abstract class BaseMenu implements IButtonMenu {
       const { type } = elem as Element
 
       if (['pre', 'code', 'table'].includes(type)) { return true }
+      if(['header1','header2','header3'].includes(type)){
+        return true
+      }
       return false
     })
 

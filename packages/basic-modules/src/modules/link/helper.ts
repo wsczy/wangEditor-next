@@ -68,6 +68,9 @@ export function isMenuDisabled(editor: IDomEditor): boolean {
 
     if (editor.isVoid(elem)) { return true }
     if (['pre', 'code', 'link'].includes(type)) { return true }
+    if(['header1','header2','header3'].includes(type)){
+      return true
+    }
     return false
   })
 

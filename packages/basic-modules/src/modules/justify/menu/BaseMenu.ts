@@ -33,6 +33,9 @@ abstract class BaseMenu implements IButtonMenu {
       if (Editor.isVoid(editor, elem) && Editor.isBlock(editor, elem) && type !== 'video') { return true }
 
       if (['pre', 'code'].includes(type)) { return true }
+      if(['header1','header2','header3'].includes(type)){
+        return true
+      }
       return false
     })
 

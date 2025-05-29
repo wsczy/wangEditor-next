@@ -43,6 +43,9 @@ abstract class BaseMenu implements ISelectMenu {
         const type = DomEditor.getNodeType(n)
 
         if (type === 'pre') { return true } // 代码块
+        if(['header1','header2','header3'].includes(type)){
+          return true
+        }
         if (Editor.isVoid(editor, n)) { return true } // void node
 
         return false
