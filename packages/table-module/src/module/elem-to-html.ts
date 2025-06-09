@@ -35,7 +35,7 @@ function tableCellToHtml(cellNode: Element, childrenHtml: string): string {
   const tag = isHeader ? 'th' : 'td'
   const style = hidden ? 'display:none' : ''
 
-  return `<${tag} colSpan="${colSpan}" rowSpan="${rowSpan}" width="${width}" style="${style}">${childrenHtml}</${tag}>`
+  return `<${tag} colSpan="${colSpan}" rowSpan="${rowSpan}" ${width !== 'auto' ? `width="${width}"` : ''} ${style ? `style="${style}"` : ''}>${childrenHtml}</${tag}>`
 }
 
 export const tableToHtmlConf = {

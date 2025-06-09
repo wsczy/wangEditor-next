@@ -29,9 +29,9 @@ import { renderStyle } from './render-style'
 import { styleToHtml } from './style-to-html'
 
 const table: Partial<IModuleConf> = {
-  renderStyle,
-  styleToHtml,
-  parseStyleHtml,
+  // renderStyle,
+  // styleToHtml,
+  // parseStyleHtml,
   renderElems: [renderTableConf, renderTableRowConf, renderTableCellConf],
   elemsToHtml: [tableToHtmlConf, tableRowToHtmlConf, tableCellToHtmlConf],
   preParseHtml: [preParseTableHtmlConf],
