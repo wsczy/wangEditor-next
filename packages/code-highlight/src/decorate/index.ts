@@ -54,7 +54,7 @@ const codeHighLightDecorate = (nodeEntry: NodeEntry): Range[] => {
     if (typeof token !== 'string') {
       // 遇到关键字，则拆分多个 range —— decorate 规则
       ranges.push({
-        [token.type]: true, // 记录类型，以便 css 使用不同的颜色
+        ['token_'+token.type]: true, // 记录类型，以便 css 使用不同的颜色
         anchor: { path, offset: start },
         focus: { path, offset: end },
       })

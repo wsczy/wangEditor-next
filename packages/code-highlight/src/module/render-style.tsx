@@ -22,7 +22,7 @@ export function renderStyle(node: Descendant, vnode: VNode): VNode {
   let className = ''
 
   prismTokenTypes.forEach(type => {
-    if (leafNode[type]) { className = type }
+    if (leafNode[type]) { className = type.replace('token_','') }
   })
 
   if (className) {

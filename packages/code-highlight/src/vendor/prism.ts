@@ -63,7 +63,7 @@ export const prismTokenTypes = [
   'italic',
   'entity',
   'char',
-]
+].map(type => `token_${type}`)
 
 /**
  * 获取 prism token 的字符串长度
