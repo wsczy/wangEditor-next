@@ -207,6 +207,13 @@ function renderResizeContainer(
   )
 }
 
+function getOnErrorConfig(editor: IDomEditor) {
+  const { EXTEND_CONF } = editor.getConfig()
+  const { imgOnError } = EXTEND_CONF
+
+  return imgOnError
+}
+
 function renderImage(elemNode: SlateElement, children: VNode[] | null, editor: IDomEditor): VNode {
   const {
     src, alt = '', href = '', style = {},
@@ -219,8 +226,31 @@ function renderImage(elemNode: SlateElement, children: VNode[] | null, editor: I
   if (width) { imageStyle.width = '100%' }
   if (height) { imageStyle.height = '100%' }
 
+
+  const onError = getOnErrorConfig(editor)
   // 【注意】void node 中，renderElem 不用处理 children 。core 会统一处理。
-  const vnode = <img style={imageStyle} src={src} alt={alt} data-href={href} />
+
+  // 处理图片加载错误的函数
+  const handleImageError = (e: Event) => {
+    if (onError) {
+      onError(e, elemNode as ImageElement, editor)
+    }
+  }
+
+  // 渲染图片节点
+  const vnode = (
+    <img
+      // 基础属性
+      src={src}
+      alt={alt}
+      data-href={href}
+      style={imageStyle}
+      // 事件处理
+      on={{
+        error: handleImageError
+      }}
+    />
+  )
 
   const isDisabled = editor.isDisabled()
 
