@@ -335,8 +335,8 @@ export const withContent = <T extends Editor>(editor: T) => {
       if (isDOMElement(n)) {
         // 只保留 h1/h2/h3 的纯文本，去掉 class 和 style
         if (["H1", "H2", "H3"].includes(nodeName)) {
-          n.removeAttribute && n.removeAttribute("class")
-          n.removeAttribute && n.removeAttribute("style")
+          n.removeAttribute("class")
+          n.removeAttribute("style")
           // 只保留纯文本内容
           n.innerHTML = n.textContent || ''
         }
@@ -345,7 +345,25 @@ export const withContent = <T extends Editor>(editor: T) => {
         return true
       }
       return false
+
     })
+
+    const { EXTEND_CONF } = e.getConfig()
+    if(EXTEND_CONF?.disableHeader) {
+      domNodes = domNodes.map(n => {
+        if (isDOMElement(n)) {
+          const { nodeName } = n
+          if (["H1", "H2", "H3"].includes(nodeName)) {
+            const p = document.createElement('p')
+            p.textContent = n.textContent || ''
+            return p
+          }
+        }
+        return n
+      })
+    }
+
+
     if (domNodes.length === 0) { return }
 
     // ------------- 把 DOM nodes 转换为 slate nodes ，并插入到编辑器 -------------
