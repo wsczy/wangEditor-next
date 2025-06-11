@@ -124,17 +124,19 @@ export function editorSelectionToDOM(textarea: TextArea, editor: IDomEditor, foc
     const leafEl = newDomRange.startContainer.parentElement! as Element
     const spacer = leafEl.closest('[data-slate-spacer]')
 
-    // 这个 if 防止选中图片时发生滚动
+    // 这个 if 防止选中图片和表格时发生滚动
     if (!spacer && newDomRange.getBoundingClientRect) {
       leafEl.getBoundingClientRect = newDomRange.getBoundingClientRect.bind(newDomRange)
       const body = document.body
-
-      scrollIntoView(leafEl, {
-        scrollMode: 'if-needed',
-        boundary: config.scroll ? editorElement.parentElement : body, // issue 4215
-        block: 'end',
-        behavior: 'smooth',
-      })
+      const isTable = leafEl.closest('table')
+      if(!isTable) {
+        scrollIntoView(leafEl, {
+          scrollMode: 'if-needed',
+          boundary: config.scroll ? editorElement.parentElement : body, // issue 4215
+          block: 'end',
+          behavior: 'smooth',
+        })
+      }
       // @ts-ignore
       delete leafEl.getBoundingClientRect
     }
