@@ -287,7 +287,6 @@ function withTable<T extends IDomEditor>(editor: T): T {
   // 重写区域选中的删除，修正可能半选的换行符
   newEditor.deleteFragment = unit => {
     const { selection } = newEditor
-
     if (!selection) { return }
     let hasChange = false
     const newSelection: Selection = {

@@ -30,19 +30,28 @@ const LOCAL_CHANGES: WeakMap<Editor, LocalChange[]> = new WeakMap()
 const CONNECTED: WeakSet<Editor> = new WeakSet()
 
 export type YjsEditor = BaseEditor & {
+  // 共享的根文本节点，用于存储协同文档内容
   sharedRoot: Y.XmlText
 
+  // 本地操作的标识符
   localOrigin: unknown
+  // 位置存储的标识符
   positionStorageOrigin: unknown
 
+  // 应用远程事件的方法，处理其他用户的修改
   applyRemoteEvents: (events: Y.YEvent<Y.XmlText>[], origin: unknown) => void
 
+  // 存储本地更改，暂存未同步的修改
   storeLocalChange: (op: Operation) => void
+  // 将暂存的本地更改同步到远程
   flushLocalChanges: () => void
 
+  // 判断是否为本地操作的方法
   isLocalOrigin: (origin: unknown) => boolean
 
+  // 连接协同服务
   connect: () => void
+  // 断开协同服务
   disconnect: () => void
 }
 

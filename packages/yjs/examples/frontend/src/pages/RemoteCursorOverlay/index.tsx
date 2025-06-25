@@ -26,7 +26,22 @@ import { RemoteCursorOverlay } from './Overlay'
 const yDoc = new Y.Doc()
 const wsProvider = new WebsocketProvider('ws://localhost:1234', 'wangeditor-next-yjs', yDoc)
 const sharedType = yDoc.get('content', Y.XmlText)
-// console.log('🚀 ~ SimplePage ~ sharedType:', sharedType.toJSON())
+
+// 监听服务端事件
+wsProvider.on('status', event => {
+  console.log('连接状态:', event.status) // 'connected' 或 'disconnected'
+})
+
+// 监听文档更新
+yDoc.on('update', (update: Uint8Array, origin: any) => {
+  console.log('文档更新:', update, '来源:', origin)
+})
+
+// 监听awareness（用户状态）更新
+wsProvider.awareness.on('change', changes => {
+  const states = wsProvider.awareness.getStates()
+  console.log('在线用户状态变化:', states)
+})
 
 Boot.registerPlugin(withYjs(sharedType))
 Boot.registerPlugin(
