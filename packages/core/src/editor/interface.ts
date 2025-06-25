@@ -3,6 +3,7 @@
  * @author wangfupeng
  */
 
+import { NodeEntryWithContext } from '@wangeditor-next/table-module/src/utils'
 import ee from 'event-emitter'
 import {
   Ancestor, Editor, Element, Location, Node,
@@ -78,6 +79,7 @@ export interface IDomEditor extends Editor {
   move: (distance: number, reverse?: boolean) => void
   moveReverse: (distance: number) => void
   restoreSelection: () => void
+  getTableSelection?: () => NodeEntryWithContext[][] | null
   getSelectionPosition: () => Partial<IPositionStyle>
   getNodePosition: (node: Node) => Partial<IPositionStyle>
   isSelectedAll: () => boolean
