@@ -9,7 +9,8 @@ import { Editor, Range, Transforms } from 'slate'
 import { ENTER_SVG } from '../../../constants/icon-svg'
 
 class EnterMenu implements IButtonMenu {
-  title = t('common.enter')
+  // title = t('common.enter')
+  title = '向下插入行'
 
   iconSvg = ENTER_SVG
 
@@ -40,7 +41,7 @@ class EnterMenu implements IButtonMenu {
 
     // 在当前位置插入空行，当前元素下移
     const newElem = { type: 'paragraph', children: [{ text: '' }] }
-    const newPath = [path[0]]
+    const newPath = [path[0] + 1]
 
     Transforms.insertNodes(editor, newElem, { at: newPath })
     editor.select(Editor.start(editor, newPath))
