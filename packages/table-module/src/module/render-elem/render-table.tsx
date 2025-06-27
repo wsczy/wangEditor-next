@@ -8,6 +8,7 @@ import debounce from 'lodash.debounce'
 import {
   Editor, Element as SlateElement, Path, Point, Range,
 } from 'slate'
+import { HistoryEditor } from 'slate-history'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { h, jsx, VNode } from 'snabbdom'
 
@@ -124,7 +125,11 @@ function renderTable(elemNode: SlateElement, children: VNode[] | null, editor: I
         }}
         on={{
           mousemove: debounce(
-            (e: MouseEvent) => handleCellBorderVisible(editor, elemNode, e, scrollWidth),
+            (e: MouseEvent) => {
+              HistoryEditor.withoutSaving(editor as IDomEditor & HistoryEditor, () => {
+                handleCellBorderVisible(editor, elemNode, e, scrollWidth)
+              })
+            },
             25,
           ),
         }}
@@ -167,9 +172,22 @@ function renderTable(elemNode: SlateElement, children: VNode[] | null, editor: I
                 }
                 style={{ height: `${height}px` }}
                 on={{
-                  mouseenter: (e: MouseEvent) => handleCellBorderHighlight(editor, e),
-                  mouseleave: (e: MouseEvent) => handleCellBorderHighlight(editor, e),
-                  mousedown: (_e: MouseEvent) => handleCellBorderMouseDown(editor, elemNode),
+                  mouseenter: (e: MouseEvent) => {
+                    HistoryEditor.withoutSaving(editor as IDomEditor & HistoryEditor, () => {
+                      handleCellBorderHighlight(editor, e)
+                    })
+                  },
+                  mouseleave: (e: MouseEvent) => {
+                    HistoryEditor.withoutSaving(editor as IDomEditor & HistoryEditor, () => {
+                      handleCellBorderHighlight(editor, e)
+                    })
+                  },
+                  mousedown: (_e: MouseEvent) => {
+                    HistoryEditor.withoutSaving(editor as IDomEditor & HistoryEditor, () => {
+                      handleCellBorderMouseDown(editor, elemNode)
+                    })
+                  },
+
                 }}
               >
                 <div className="resizer-line"></div>

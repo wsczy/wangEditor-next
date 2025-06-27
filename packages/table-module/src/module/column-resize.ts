@@ -1,6 +1,7 @@
 import { IDomEditor, isHTMLElememt } from '@wangeditor-next/core'
 import throttle from 'lodash.throttle'
 import { Editor, Element as SlateElement, Transforms } from 'slate'
+import { HistoryEditor } from 'slate-history'
 
 import { isOfType } from '../utils'
 import $ from '../utils/dom'
