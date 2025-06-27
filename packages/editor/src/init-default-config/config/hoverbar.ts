@@ -26,7 +26,7 @@ const COMMON_HOVERBAR_KEYS = {
     menuKeys: [
       'enter',
       'tableHeader',
-      'tableFullWidth',
+      // 'tableFullWidth',
       'insertTableRow',
       'deleteTableRow',
       'insertTableCol',
@@ -36,8 +36,8 @@ const COMMON_HOVERBAR_KEYS = {
       'mergeTableCell',
       'splitTableCell',
       /** 注册表格/单元格属性设置 */
-      'setTableProperty',
-      'setTableCellProperty',
+      // 'setTableProperty',
+      // 'setTableCellProperty',
     ],
   },
   divider: {
