@@ -12,6 +12,7 @@ import {
 import {
   AlertType, IEditorConfig, IMenuConfig, ISingleMenuConfig,
 } from '../config/interface'
+import { IBarItem } from '../menus/bar-item'
 import { IPositionStyle } from '../menus/interface'
 import { DOMElement } from '../utils/dom'
 
@@ -30,6 +31,7 @@ export interface IDomEditor extends Editor {
   // config
   getConfig: () => IEditorConfig
   getMenuConfig: <K extends string>(menuKey: K) => getMenuConfigReturnType<K>
+  getMenuByKey: (menuKey: string) => IBarItem
   getAllMenuKeys: () => string[]
   alert: (info: string, type: AlertType) => void
 

@@ -7,6 +7,8 @@ import { Editor } from 'slate'
 
 import { getMenuConfigReturnType, IDomEditor } from '../..'
 import { AlertType, IEditorConfig } from '../../config/interface'
+import { MENU_KEY_TO_BAR_ITEM } from '../../menus/bar/Toolbar'
+import { IBarItem } from '../../menus/bar-item'
 import { MENU_ITEM_FACTORIES } from '../../menus/register'
 import { EDITOR_TO_CONFIG } from '../../utils/weak-maps'
 
@@ -36,6 +38,10 @@ export const withConfig = <T extends Editor>(editor: T) => {
     const { MENU_CONF = {} } = e.getConfig()
 
     return MENU_CONF[menuKey] || {}
+  }
+
+  e.getMenuByKey = (menuKey: string): IBarItem => {
+    return MENU_KEY_TO_BAR_ITEM.get(menuKey) as IBarItem
   }
 
   // alert

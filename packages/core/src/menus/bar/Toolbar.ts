@@ -20,6 +20,8 @@ import {
 } from '../interface'
 import { MENU_ITEM_FACTORIES } from '../register'
 
+export const MENU_KEY_TO_BAR_ITEM = new Map<String, IBarItem>()
+
 type MenuType = IButtonMenu | ISelectMenu | IDropPanelMenu | IModalMenu
 
 class Toolbar {
@@ -210,6 +212,8 @@ class Toolbar {
 
     // 保存 toolbarItem 和 editor 的关系
     BAR_ITEM_TO_EDITOR.set(toolbarItem, editor)
+
+    MENU_KEY_TO_BAR_ITEM.set(key, toolbarItem)
 
     // 添加 DOM
     if (inGroup) {
